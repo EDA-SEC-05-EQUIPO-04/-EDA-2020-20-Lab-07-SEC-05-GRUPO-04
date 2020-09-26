@@ -41,6 +41,21 @@ es decir contiene los modelos con los datos en memoria
 
 # Funciones para agregar informacion al catalogo
 
+def newAnalyzer():
+    """ Inicializa el analizador
+    Crea una lista vacia para guardar todos los crimenes
+    Se crean indices (Maps) por los siguientes criterios:
+    -Fechas
+    Retorna el analizador inicializado.
+    """
+    analyzer = {'accidents': None,
+                'dateIndex': None
+                }
+
+    analyzer['accidents'] = lt.newList('SINGLE_LINKED', compareIds)
+    analyzer['dateIndex'] = om.newMap(omaptype='BST',
+                                      comparefunction=compareDates)
+    return analyzer
 
 # ==============================
 # Funciones de consulta

@@ -42,8 +42,10 @@ def init():
     """
     Llama la funcion de inicializacion del modelo.
     """
-
-    return None
+    # catalog es utilizado para interactuar con el modelo
+    
+    analyzer = model.newAnalyzer()
+    return analyzer
 
 
 # ___________________________________________________
