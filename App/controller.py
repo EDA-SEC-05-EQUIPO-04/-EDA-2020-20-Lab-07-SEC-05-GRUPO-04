@@ -60,6 +60,7 @@ def loadData(analyzer, accidentsfile):
     
     return analyzer
 
+
 # ___________________________________________________
 #  Funciones para consultas
 # ___________________________________________________
