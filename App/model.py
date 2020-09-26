@@ -41,6 +41,21 @@ es decir contiene los modelos con los datos en memoria
 
 # Funciones para agregar informacion al catalogo
 
+def newAnalyzer():
+    """ Inicializa el analizador
+    Crea una lista vacia para guardar todos los accidentes
+    Se crean indices (Maps) por los siguientes criterios:
+    -Fechas
+    Retorna el analizador inicializado.
+    """
+    analyzer = {'accidents': None,
+                'dateIndex': None
+                }
+
+    analyzer['accidents'] = lt.newList('SINGLE_LINKED', compareIds)
+    analyzer['dateIndex'] = om.newMap(omaptype='BST',
+                                      comparefunction=compareDates)
+    return analyzer
 
 # ==============================
 # Funciones de consulta
@@ -50,3 +65,41 @@ es decir contiene los modelos con los datos en memoria
 # ==============================
 # Funciones de Comparacion
 # ==============================
+
+def compareIds(id1, id2):
+    """
+    Compara dos accidentes
+    """
+    if (id1 == id2):
+        return 0
+    elif id1 > id2:
+        return 1
+    else:
+        return -1
+
+
+def compareDates(date1, date2):
+    """
+    Compara dos ids de accidentes, id es un identificador
+    y entry una pareja llave-valor
+    """
+    if (date1 == date2):
+        return 0
+    elif (date1 > date2):
+        return 1
+    else:
+        return -1
+
+
+def compareOffenses(offense1, offense2):
+    """
+    Compara dos ids de accidentes, id es un identificador
+    y entry una pareja llave-valor
+    """
+    offense = me.getKey(offense2)
+    if (offense1 == offense):
+        return 0
+    elif (offense1 > offense):
+        return 1
+    else:
+        return -1
