@@ -43,7 +43,7 @@ es decir contiene los modelos con los datos en memoria
 
 def newAnalyzer():
     """ Inicializa el analizador
-    Crea una lista vacia para guardar todos los crimenes
+    Crea una lista vacia para guardar todos los accidentes
     Se crean indices (Maps) por los siguientes criterios:
     -Fechas
     Retorna el analizador inicializado.
