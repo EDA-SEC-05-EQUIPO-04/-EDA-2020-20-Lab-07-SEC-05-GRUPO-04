@@ -38,7 +38,7 @@ operación seleccionada.
 # ___________________________________________________
 
 
-crimefile = 'crime-utf8.csv'
+accidents_file = 'us_accidents_small.csv'
 
 # ___________________________________________________
 #  Menu principal
@@ -70,14 +70,20 @@ while True:
         cont = controller.init()
 
     elif int(inputs[0]) == 2:
-        print("\nCargando información de crimenes ....")
+        print("\nCargando información de accidentes ....")
+        controller.loadData(cont, accidents_file)
+        print('Accidentes cargados: ' + str(controller.accidentesSize(cont)))
 
     elif int(inputs[0]) == 3:
-        print("\nBuscando crimenes en un rango de fechas: ")
+        print("\nBuscando los accidentes en una fecha por severidad... ")
+        StartDate = input("Fecha (YYYY-MM-DD): ")
+        severity = input("Numero de severidad: ")
+        numaccidentes = controller.getaccidentesByRangeCode(cont, StartDate, severity)
+        print("\nCantidad de accidentes de severidad: " + "'" + severity + "'" + "en la fecha" + " (" + StartDate + ") : " + str(numaccidentes))
 
 
     elif int(inputs[0]) == 4:
-        print("\nRequerimiento No 1 del reto 3: ")
+        pass
 
     else:
         sys.exit(0)

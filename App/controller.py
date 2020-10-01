@@ -42,25 +42,48 @@ def init():
     """
     Llama la funcion de inicializacion del modelo.
     """
-    # catalog es utilizado para interactuar con el modelo
-    
     analyzer = model.newAnalyzer()
     return analyzer
-
-
 # ___________________________________________________
 #  Funciones para la carga de datos y almacenamiento
 #  de datos en los modelos
 # ___________________________________________________
 
-def loadData(analyzer, accidentsfile):
+def loadData(analyzer, accidents_file):
     """
     Carga los datos de los archivos CSV en el modelo
     """
-    
+    accidents_file = cf.data_dir + accidents_file
+    input_file = csv.DictReader(open(accidents_file, encoding="utf-8"),
+                                delimiter=",")
+    for accidente in input_file:
+        model.addaccidente(analyzer, accidente)
     return analyzer
 
 
 # ___________________________________________________
 #  Funciones para consultas
 # ___________________________________________________
+
+
+def accidentesSize(analyzer):
+    """
+    Numero de accidentes leidos
+    """
+    return model.accidentesSize(analyzer)
+
+
+
+def indexHeight(analyzer):
+    """
+    Altura del indice (arbol)
+    """
+    return model.indexHeight(analyzer)
+
+def getaccidentesByRangeCode(analyzer, StartDate, severity):
+    """
+    Retorna el total de accidentes de un tipo especifico en una
+    fecha determinada
+    """
+    StartDate = datetime.datetime.strptime(StartDate, '%Y-%m-%d')
+    return model.getaccidentesByRangeCode(analyzer, StartDate.date(), severity)
