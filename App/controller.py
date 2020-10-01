@@ -49,12 +49,12 @@ def init():
 #  de datos en los modelos
 # ___________________________________________________
 
-def loadData(analyzer, Afile):
+def loadData(analyzer, accidents_file):
     """
     Carga los datos de los archivos CSV en el modelo
     """
-    Afile = cf.data_dir + Afile
-    input_file = csv.DictReader(open(Afile, encoding="utf-8"),
+    accidents_file = cf.data_dir + accidents_file
+    input_file = csv.DictReader(open(accidents_file, encoding="utf-8"),
                                 delimiter=",")
     for accidente in input_file:
         model.addaccidente(analyzer, accidente)

@@ -79,7 +79,7 @@ while True:
         StartDate = input("Fecha (YYYY-MM-DD): ")
         severity = input("Numero de severidad: ")
         numaccidentes = controller.getaccidentesByRangeCode(cont, StartDate, severity)
-        print("\nCantidad de accidentes de severidad: " + "'" + severity + "'" + "en la fecha" + " (" + StartDate + ") :" + str(numaccidentes))
+        print("\nCantidad de accidentes de severidad: " + "'" + severity + "'" + "en la fecha" + " (" + StartDate + ") : " + str(numaccidentes))
 
 
     elif int(inputs[0]) == 4:
