@@ -28,6 +28,7 @@ from DISClib.DataStructures import listiterator as it
 import datetime
 assert config
 
+
 """
 En este archivo definimos los TADs que vamos a usar,
 es decir contiene los modelos con los datos en memoria
@@ -158,6 +159,13 @@ def getAccidentsByRange(analyzer, initialDate, fecha_final):
             tot_accidents += getaccidentesByRangeCode(analyzer,lstdate,str(i))
             i += 1
     return tot_accidents
+
+def getAccidentsBeforeDate(analyzer, fecha_final):
+
+    inicio = datetime.datetime.strptime(str(om.minKey(analyzer['dateIndex'])), '%Y-%m-%d')
+    iniciodate = inicio.date()
+    lst = getAccidentsByRange(analyzer, iniciodate, fecha_final)
+    return lst
 
 # ==============================
 # Funciones de Comparacion
