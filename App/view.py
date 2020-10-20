@@ -84,7 +84,7 @@ while True:
 
     elif int(inputs[0]) == 4:
         initialDate = input("Rango Inicial (YYYY-MM-DD): ")
-        finalDate = input("Rango Inicial (YYYY-MM-DD): ")
+        finalDate = input("Rango Final (YYYY-MM-DD): ")
         total = controller.getAccidentsByRange(cont, initialDate, finalDate)
         print("\nTotal de accidentes en el rango de fechas: " + str(total))
 
