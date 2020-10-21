@@ -91,8 +91,9 @@ while True:
     elif int(inputs[0]) == 5:
         initialDate = input("Rango Inicial: (YYYY-MM-DD): ")
         finalDate = input("Rango Final: (YYYY-MM-DD): ")
-        total = controller.getAccidentsByRange(cont, initialDate, finalDate)
-        print("\nTotal de accidentes en el rango de fechas: " + str(total))
+        total = controller.getAccidentsByRange2(cont, initialDate, finalDate)
+        print("\nTotal de accidentes en el rango de fechas: " + str(total[0])+"\nSeveridad más recurrente: "+ str(total[1][1])
+        + "\nNumero de accidentes de esta severidad en el rango de fechas: " + str(total[1][0]))
 
     else:
         sys.exit(0)
