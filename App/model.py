@@ -146,6 +146,25 @@ def getaccidentesByRangeCode(analyzer, StartDate, severity):
             return m.size(me.getValue(numaccidentes)['lstseverity'])
         return 0
 
+def getAccidentsByRange(analyzer, initialDate, fecha_final):
+    lst = om.values(analyzer['dateIndex'], initialDate, fecha_final)
+    lstiterator = it.newIterator(lst)
+    tot_accidents = 0
+    while (it.hasNext(lstiterator)):
+        lstdate  = it.next(lstiterator)
+        i = 1
+        while i <= 4:
+            tot_accidents += getaccidentesByRangeCode(analyzer,lstdate,str(i))
+            i += 1
+    return tot_accidents
+
+def getAccidentsBeforeDate(analyzer, fecha_final):
+
+    inicio = datetime.datetime.strptime(str(om.minKey(analyzer['dateIndex'])), '%Y-%m-%d')
+    iniciodate = inicio.date()
+    lst = getAccidentsByRange(analyzer, iniciodate, fecha_final)
+    return lst
+
 # ==============================
 # Funciones de Comparacion
 # ==============================
@@ -162,10 +181,7 @@ def compareIds(id1, id2):
         return -1
 
 def compareDates(date1, date2):
-    """
-    Compara dos ids de accidentes, id es un identificador
-    y entry una pareja llave-valor
-    """
+
     if (date1 == date2):
         return 0
     elif (date1 > date2):
@@ -185,3 +201,9 @@ def compareseverity(severity1, severity2):
         return 1
     else:
         return -1
+    
+def minKey(analyzer):
+    """
+    Llave mas pequeña
+    """
+    return om.minKey(analyzer['dateIndex'])

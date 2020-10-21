@@ -53,6 +53,7 @@ def printMenu():
     print("2- Cargar información de accidentes")
     print("3- Requerimento 1")
     print("4- Requerimento 2")
+    print("5- Requerimento 3")
     print("0- Salir")
     print("*******************************************")
 
@@ -83,7 +84,15 @@ while True:
 
 
     elif int(inputs[0]) == 4:
-        pass
+        finalDate = input("Fecha Final: (YYYY-MM-DD): ")
+        total = controller.getAccidentsBeforeDate(cont, finalDate)
+        print("\nTotal de accidentes antes de la fecha: " + str(total))
+
+    elif int(inputs[0]) == 5:
+        initialDate = input("Rango Inicial: (YYYY-MM-DD): ")
+        finalDate = input("Rango Final: (YYYY-MM-DD): ")
+        total = controller.getAccidentsByRange(cont, initialDate, finalDate)
+        print("\nTotal de accidentes en el rango de fechas: " + str(total))
 
     else:
         sys.exit(0)
