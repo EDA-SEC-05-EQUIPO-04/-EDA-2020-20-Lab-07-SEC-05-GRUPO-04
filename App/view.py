@@ -54,6 +54,8 @@ def printMenu():
     print("3- Requerimento 1")
     print("4- Requerimento 2")
     print("5- Requerimento 3")
+    print("6- Requerimento 4")
+    print("7- Requerimento 5")
     print("0- Salir")
     print("*******************************************")
 
@@ -94,6 +96,7 @@ while True:
         total = controller.getAccidentsByRange2(cont, initialDate, finalDate)
         print("\nTotal de accidentes en el rango de fechas: " + str(total[0])+"\nSeveridad más recurrente: "+ str(total[1][1])
         + "\nNumero de accidentes de esta severidad en el rango de fechas: " + str(total[1][0]))
+
 
     else:
         sys.exit(0)
