@@ -84,15 +84,15 @@ while True:
 
 
     elif int(inputs[0]) == 4:
+        finalDate = input("Fecha Final: (YYYY-MM-DD): ")
+        total = controller.getAccidentsBeforeDate(cont, finalDate)
+        print("\nTotal de accidentes antes de la fecha: " + str(total))
+
+    elif int(inputs[0]) == 5:
         initialDate = input("Rango Inicial: (YYYY-MM-DD): ")
         finalDate = input("Rango Final: (YYYY-MM-DD): ")
         total = controller.getAccidentsByRange(cont, initialDate, finalDate)
         print("\nTotal de accidentes en el rango de fechas: " + str(total))
-
-    elif int(inputs[0]) == 5:
-        finalDate = input("Fecha Final: (YYYY-MM-DD): ")
-        total = controller.getAccidentsBeforeDate(cont, finalDate)
-        print("\nTotal de accidentes antes de la fecha: " + str(total))
 
     else:
         sys.exit(0)

@@ -103,4 +103,4 @@ def getAccidentsByRange(analyzer, initialDate, finalDate):
 def getAccidentsBeforeDate (analyzer, finalDate):
     final = datetime.datetime.strptime(finalDate, '%Y-%m-%d')
     finalDate = final.date()
-    model.getAccidentsBeforeDate(analyzer, finalDate)
+    return model.getAccidentsBeforeDate(analyzer, finalDate)
