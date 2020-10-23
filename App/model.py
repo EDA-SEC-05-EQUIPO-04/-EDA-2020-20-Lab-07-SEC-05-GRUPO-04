@@ -28,6 +28,7 @@ from DISClib.DataStructures import listiterator as it
 import datetime
 assert config
 
+
 """
 En este archivo definimos los TADs que vamos a usar,
 es decir contiene los modelos con los datos en memoria
@@ -146,6 +147,7 @@ def getaccidentesByRangeCode(analyzer, StartDate, severity):
             return m.size(me.getValue(numaccidentes)['lstseverity'])
         return 0
 
+
 def getAccidentsByRange2(analyzer, initialDate, fecha_final):
     lst = om.values(analyzer['dateIndex'], initialDate, fecha_final)
     lstiterator = it.newIterator(lst)
@@ -177,10 +179,12 @@ def getAccidentsByRange2(analyzer, initialDate, fecha_final):
         severidad_repetida = serv_4,4
     return tot_accidents,severidad_repetida
 
+
 def getAccidentsByRange(analyzer, initialDate, fecha_final):
     lst = om.values(analyzer['dateIndex'], initialDate, fecha_final)
     lstiterator = it.newIterator(lst)
     tot_accidents = 0
+    
     mayor = 0
     while (it.hasNext(lstiterator)):
         lstdate  = it.next(lstiterator)

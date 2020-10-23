@@ -84,10 +84,12 @@ def minKey(analyzer):
 
     return model.minKey(analyzer)
 
+
 def getAccidentsByRange2(analyzer, initialDate, finalDate):
     initialDate = datetime.datetime.strptime(initialDate, '%Y-%m-%d')
     finalDate = datetime.datetime.strptime(finalDate, '%Y-%m-%d')
     return model.getAccidentsByRange2(analyzer, initialDate.date(),finalDate.date())
+
 
 def getaccidentesByRangeCode(analyzer, StartDate, severity):
     """

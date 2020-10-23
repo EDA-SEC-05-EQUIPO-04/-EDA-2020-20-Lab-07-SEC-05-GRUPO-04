@@ -14,7 +14,7 @@
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU General Public License for more details.1
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
@@ -56,6 +56,7 @@ def printMenu():
     print("5- Requerimento 3")
     print("6- Requerimento 4")
     print("7- Requerimento 5")
+
     print("0- Salir")
     print("*******************************************")
 
@@ -88,8 +89,11 @@ while True:
     elif int(inputs[0]) == 4:
         finalDate = input("Fecha Final: (YYYY-MM-DD): ")
         total = controller.getAccidentsBeforeDate(cont, finalDate)
+
         print("\nTotal de accidentes antes de la fecha: " + str(total[0]) + "\nFecha con mas accidentes: " + str(total[2]) + 
         "\nNumero de accidentes en la fecha " + "("+str(total[2])+")" + ": "+ str(total[1]))
+
+
 
     elif int(inputs[0]) == 5:
         initialDate = input("Rango Inicial: (YYYY-MM-DD): ")
@@ -97,6 +101,7 @@ while True:
         total = controller.getAccidentsByRange2(cont, initialDate, finalDate)
         print("\nTotal de accidentes en el rango de fechas: " + str(total[0])+"\nSeveridad más recurrente: "+ str(total[1][1])
         + "\nNumero de accidentes de esta severidad en el rango de fechas: " + str(total[1][0]))
+
 
 
     else:
