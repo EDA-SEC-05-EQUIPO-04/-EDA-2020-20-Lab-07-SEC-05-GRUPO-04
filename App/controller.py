@@ -84,6 +84,13 @@ def minKey(analyzer):
 
     return model.minKey(analyzer)
 
+
+def getAccidentsByRange2(analyzer, initialDate, finalDate):
+    initialDate = datetime.datetime.strptime(initialDate, '%Y-%m-%d')
+    finalDate = datetime.datetime.strptime(finalDate, '%Y-%m-%d')
+    return model.getAccidentsByRange2(analyzer, initialDate.date(),finalDate.date())
+
+
 def getaccidentesByRangeCode(analyzer, StartDate, severity):
     """
     Retorna el total de accidentes de un tipo especifico en una
@@ -91,7 +98,7 @@ def getaccidentesByRangeCode(analyzer, StartDate, severity):
     """
     StartDate = datetime.datetime.strptime(StartDate, '%Y-%m-%d')
     return model.getaccidentesByRangeCode(analyzer, StartDate.date(), severity)
-    
+
 def getAccidentsByRange(analyzer, initialDate, finalDate):
     """
     Retorna el total de crimenes en un rango de fechas
