@@ -209,6 +209,21 @@ def getAccidentsBeforeDate(analyzer, fecha_final):
     lst = getAccidentsByRange(analyzer, iniciodate, fecha_final)
     return lst
 
+def getAccidentsByHour (analyzer, initialDate, fecha_final, inicio, fin):
+    lst = om.values(analyzer['dateIndex'], inicio, fin)
+    lstiterator = it.newIterator(lst)
+
+    tot_accidents = 0
+    
+    while (it.hasNext(lstiterator)):
+        lstdate  = it.next(lstiterator)
+        i = 1
+        while i <= 4:
+            if lstdate.time() in range (initialDate, fecha_final):
+                tot_accidents += getaccidentesByRangeCode(analyzer,lstdate,str(i))
+                i += 1
+    
+    return tot_accidents
 # ==============================
 # Funciones de Comparacion
 # ==============================

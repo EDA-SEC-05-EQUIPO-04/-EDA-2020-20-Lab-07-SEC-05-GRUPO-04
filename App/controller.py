@@ -24,6 +24,7 @@ import config as cf
 from App import model
 import datetime
 import csv
+from DISClib.ADT import orderedmap as om
 
 """
 El controlador se encarga de mediar entre la vista y el modelo.
@@ -104,3 +105,31 @@ def getAccidentsBeforeDate (analyzer, finalDate):
     final = datetime.datetime.strptime(finalDate, '%Y-%m-%d')
     finalDate = final.date()
     return model.getAccidentsBeforeDate(analyzer, finalDate)
+
+def getAccidentsByHour (analyzer, initialDate, finalDate):
+    inicio = datetime.datetime.strptime(str(om.minKey(analyzer['dateIndex'])), '%Y-%m-%d %H:%M:%S')
+    fin = datetime.datetime.strptime(str(om.maxKey(analyzer['dateIndex'])), '%Y-%m-%d %H:%M:%S')
+
+    initialDate = datetime.datetime.strptime(initialDate, '%H:%M:%S')
+    if initialDate.minute != 00 and initialDate.minute != 30:
+        if initialDate.minute > 30:
+            hora = initialDate.hour
+            initialDate.replace(hour= (hora + 1))
+            initialDate.replace(minute= 00)
+            initialDate.replace(second= 00)
+        else:
+            initialDate.replace(minute= 30)
+            initialDate.replace(second= 00)
+
+    finalDate = datetime.datetime.strptime(finalDate, '%H:%M:%S')
+    if finalDate.minute != 00 and finalDate.minute != 30:
+        if finalDate.minute > 30:
+            hora = finalDate.hour
+            finalDate.replace(hour= (hora + 1))
+            finalDate.replace(minute= 00)
+            finalDate.replace(second= 00)
+        else:
+            finalDate.replace(minute= 30)
+            finalDate.replace(second= 00)
+
+    return model.getAccidentsByHour(analyzer, initialDate.date(),finalDate.date(), inicio, fin)
