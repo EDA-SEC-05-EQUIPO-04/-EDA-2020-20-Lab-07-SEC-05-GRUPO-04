@@ -176,18 +176,24 @@ def getAccidentsByRange2(analyzer, initialDate, fecha_final):
     elif serv_4 > severidad_repetida[0]:
         severidad_repetida = serv_4,4
     return tot_accidents,severidad_repetida
-    
+
 def getAccidentsByRange(analyzer, initialDate, fecha_final):
     lst = om.values(analyzer['dateIndex'], initialDate, fecha_final)
     lstiterator = it.newIterator(lst)
     tot_accidents = 0
+    mayor = 0
     while (it.hasNext(lstiterator)):
         lstdate  = it.next(lstiterator)
+        accidents_fecha = 0
         i = 1
         while i <= 4:
+            accidents_fecha += getaccidentesByRangeCode(analyzer,lstdate,str(i))
             tot_accidents += getaccidentesByRangeCode(analyzer,lstdate,str(i))
             i += 1
-    return tot_accidents
+        if accidents_fecha > mayor:
+            mayor = accidents_fecha
+            fecha_mas_acc = lstdate
+    return tot_accidents,mayor,fecha_mas_acc
 
 def getAccidentsBeforeDate(analyzer, fecha_final):
 
