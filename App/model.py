@@ -28,7 +28,6 @@ from DISClib.DataStructures import listiterator as it
 import datetime
 assert config
 
-
 """
 En este archivo definimos los TADs que vamos a usar,
 es decir contiene los modelos con los datos en memoria
@@ -140,7 +139,6 @@ def getaccidentesByRangeCode(analyzer, StartDate, severity):
     de un tipo especifico.
     """
     accidentedate = om.get(analyzer['dateIndex'], StartDate)
-    print(accidentedate['key'])
     if accidentedate['key'] is not None:
         severitymap = me.getValue(accidentedate)['severityIndex']
         numaccidentes = m.get(severitymap, severity)
@@ -148,17 +146,61 @@ def getaccidentesByRangeCode(analyzer, StartDate, severity):
             return m.size(me.getValue(numaccidentes)['lstseverity'])
         return 0
 
-def getAccidentsByRange(analyzer, initialDate, fecha_final):
+def getAccidentsByRange2(analyzer, initialDate, fecha_final):
     lst = om.values(analyzer['dateIndex'], initialDate, fecha_final)
     lstiterator = it.newIterator(lst)
     tot_accidents = 0
+    serv_1 = 0
+    serv_2 = 0
+    serv_3 = 0
+    serv_4 = 0
+    while (it.hasNext(lstiterator)):
+        lstdate  = it.next(lstiterator)
+        i = 1
+        while i <= 4:
+            if i == 1:
+                serv_1 += getaccidentesByRangeCode(analyzer,lstdate,str(i))
+            elif i == 2:
+                serv_2 += getaccidentesByRangeCode(analyzer,lstdate,str(i))
+            elif i == 3:
+                serv_3 += getaccidentesByRangeCode(analyzer,lstdate,str(i))
+            else:
+                serv_4 += getaccidentesByRangeCode(analyzer,lstdate,str(i))
+            tot_accidents += getaccidentesByRangeCode(analyzer,lstdate,str(i))
+            i += 1
+    severidad_repetida = serv_2,2
+    if serv_1 > severidad_repetida[0]:
+        severidad_repetida = serv_1,1
+    elif serv_3 > severidad_repetida[0]:
+        severidad_repetida = serv_3,3
+    elif serv_4 > severidad_repetida[0]:
+        severidad_repetida = serv_4,4
+    return tot_accidents,severidad_repetida
+    
+def getAccidentsByRange(analyzer, initialDate, fecha_final):
+    lst = om.values(analyzer['dateIndex'], initialDate, fecha_final)
+    lstiterator = it.newIterator(lst)
+
+    dates = om.newMap('RBT', None)
+
+    tot_accidents = 0
+    
     while (it.hasNext(lstiterator)):
         lstdate  = it.next(lstiterator)
         i = 1
         while i <= 4:
             tot_accidents += getaccidentesByRangeCode(analyzer,lstdate,str(i))
             i += 1
-    return tot_accidents
+            if om.contains(dates, lstdate):
+                num = ((int(om.get(dates, lstdate)))+1)
+                om.put(dates, lstdate, num)
+            else:
+                om.put(dates, lstdate, 1)
+
+    fech = om.maxKey(dates)
+
+    ret =(tot_accidents, fech)
+    return ret
 
 def getAccidentsBeforeDate(analyzer, fecha_final):
 
