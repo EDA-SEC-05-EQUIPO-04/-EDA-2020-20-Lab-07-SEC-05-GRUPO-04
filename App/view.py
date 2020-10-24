@@ -25,6 +25,7 @@ import config
 from DISClib.ADT import list as lt
 from App import controller
 import datetime
+from DISClib.ADT import map as m
 import numpy as np
 from DISClib.ADT import orderedmap as om
 assert config
@@ -145,8 +146,13 @@ while True:
         lat = np.radians(float(input("Latitud: ")))
         lng = np.radians(float(input("Longitud: ")))
         radio = float(input("Radio (en millas): "))
-        controller.getaccidentesByDistance(cont,lat,lng,radio)
-
+        res=controller.getaccidentesByDistance(cont,lat,lng,radio)
+        dicdias={"0":"Lunes","1":"Martes","2":"Miercoles","3":"Jueves","4":"Viernes","5":"Sabado","6":"Domingo"}
+        for i in range (0,7):
+            if om.contains(res,i):
+                print("Día: {} numero de accidentes {}".format(dicdias[str(i)],om.get(res,i)['value']))
+            else:
+                print("Día: {} numero de accidentes {}".format(dicdias[str(i)],0))
         printRespuesta()
     else:
         sys.exit(0)

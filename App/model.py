@@ -336,17 +336,28 @@ def updateAccidentsByDistance(analyzer,lon1,lat1,R):
         
         dist=dinstancefunction(float(lat1),float(lon1),float(lat2),float(lon2))
         updateDistanceIndex(analyzer['distanceIndex'],accidente,dist)
-
+    mapasemana=om.newMap(comparefunction=compareIds)
     lst = om.values(analyzer['distanceIndex'],1, R)
     lstiterator = it.newIterator(lst)
     while it.hasNext(lstiterator):
-        
+        element=it.next(lstiterator)
+        mapa=om.get(analyzer['distanceIndex'],element)['value']['severityIndex']
+        listafechas=m.keySet(mapa)
+        listaiterator=it.newIterator(listafechas)
+        while it.hasNext(listaiterator):
+            fecha=it.next(listaiterator)
+            dia=datetime.datetime.strptime(fecha.split(" ")[0], '%Y-%m-%d').weekday()
+            if om.contains(mapasemana,int(dia)):
+                om.put(mapasemana,dia,int(om.get(mapasemana,dia)['value'])+1)
+            else:
+                om.put(mapasemana,dia,1)
     tot_accidents = 0
-    mapa=om.newMap(comparefunction=compareIds)
-    return 0
+    
+    
+    return mapasemana
     
 def getAccidentsByDistance(analyzer,lon1,lat1,R):
-    updateAccidentsByDistance(analyzer,lon1,lat1,R)
+    return updateAccidentsByDistance(analyzer,lon1,lat1,R)
 
 def getAccidentsByState(analyzer, initialDate, fecha_final):
     lst = om.values(analyzer['dateIndex'], initialDate, fecha_final)
@@ -391,6 +402,8 @@ def compareIds(id1, id2):
     """
     Compara dos accidentes
     """
+    if type(id2)==type("a"):
+        id2=int(id2)
     if (id1 == id2):
         return 0
     elif id1 > id2:

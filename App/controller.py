@@ -114,7 +114,7 @@ def getAccidentsBeforeDate (analyzer, finalDate):
 
 def getaccidentesByDistance(analyzer,lon,lat,R):
     
-    model.getAccidentsByDistance(analyzer,lon,lat,R)
+    return model.getAccidentsByDistance(analyzer,lon,lat,R)
 
 def getsizeaccidentes(analyzer):
     return model.accidentesSize(analyzer)
