@@ -36,8 +36,6 @@ recae sobre el controlador.
 # ___________________________________________________
 #  Inicializacion del catalogo
 # ___________________________________________________
-
-
 def init():
     """
     Llama la funcion de inicializacion del modelo.
@@ -48,7 +46,6 @@ def init():
 #  Funciones para la carga de datos y almacenamiento
 #  de datos en los modelos
 # ___________________________________________________
-
 def loadData(analyzer, accidents_file):
     """
     Carga los datos de los archivos CSV en el modelo
@@ -59,20 +56,14 @@ def loadData(analyzer, accidents_file):
     for accidente in input_file:
         model.addaccidente(analyzer, accidente)
     return analyzer
-
-
 # ___________________________________________________
 #  Funciones para consultas
 # ___________________________________________________
-
-
 def accidentesSize(analyzer):
     """
     Numero de accidentes leidos
     """
     return model.accidentesSize(analyzer)
-
-
 
 def indexHeight(analyzer):
     """
@@ -96,11 +87,39 @@ def getAccidentsByRange(analyzer, initialDate, finalDate):
     """
     Retorna el total de crimenes en un rango de fechas
     """
-    initialDate = datetime.datetime.strptime(initialDate, '%Y-%m-%d')
+    initialDate= datetime.datetime.strptime(initialDate, "%Y-%m-%d")
     finalDate = datetime.datetime.strptime(finalDate, '%Y-%m-%d')
     return model.getAccidentsByRange(analyzer, initialDate.date(),finalDate.date())
+
+def getAccidentsByRangeHour(analyzer, initialDate, finalDate):
+    """
+    Retorna el total de crimenes en un rango de fechas
+    """
+    initialDate= datetime.time(hour=int(initialDate[0]),minute=int(initialDate[1]),second=59)
+    finalDate = datetime.time(hour=int(finalDate[0]),minute=int(finalDate[1]),second=59)
+    return model.getAccidentsByRangeHour(analyzer, initialDate,finalDate)
+
+def getAccidentsByRangeState(analyzer, initialDate, finalDate):
+    """
+    Retorna el total de crimenes en un rango de fechas
+    """
+    initialDate= datetime.datetime.strptime(initialDate, "%Y-%m-%d")
+    finalDate = datetime.datetime.strptime(finalDate, '%Y-%m-%d')
+    return model.getAccidentsByState(analyzer, initialDate.date(),finalDate.date())
 
 def getAccidentsBeforeDate (analyzer, finalDate):
     final = datetime.datetime.strptime(finalDate, '%Y-%m-%d')
     finalDate = final.date()
     model.getAccidentsBeforeDate(analyzer, finalDate)
+
+def getaccidentesByDistance(analyzer,lon,lat,R):
+    
+    model.getAccidentsByDistance(analyzer,lon,lat,R)
+
+def getsizeaccidentes(analyzer):
+    return model.accidentesSize(analyzer)
+
+def getInitialDate(analyzer):
+    initialDate=model.minKey(analyzer)
+    initialDate=str(initialDate.strftime("%Y-%m-%d"))
+    return initialDate
