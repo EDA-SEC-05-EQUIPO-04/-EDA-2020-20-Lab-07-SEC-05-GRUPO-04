@@ -21,6 +21,7 @@
  """
 import config
 from DISClib.ADT import list as lt
+import numpy as np
 from DISClib.ADT import orderedmap as om
 from DISClib.DataStructures import mapentry as me
 from DISClib.ADT import map as m
@@ -334,10 +335,10 @@ def updateAccidentsByDistance(analyzer,lon1,lat1,R):
         lat2 = accidente['Start_Lat']
         lon2 = accidente['Start_Lng']
         
-        dist=dinstancefunction(float(lat1),float(lon1),float(lat2),float(lon2))
+        dist=dinstancefunction(float(lat1),float(lon1),np.radians(float(lat2)),np.radians(float(lon2)))
         updateDistanceIndex(analyzer['distanceIndex'],accidente,dist)
     mapasemana=om.newMap(comparefunction=compareIds)
-    lst = om.values(analyzer['distanceIndex'],1, R)
+    lst = om.values(analyzer['distanceIndex'],0, R)
     lstiterator = it.newIterator(lst)
     while it.hasNext(lstiterator):
         element=it.next(lstiterator)

@@ -146,7 +146,7 @@ while True:
         lat = np.radians(float(input("Latitud: ")))
         lng = np.radians(float(input("Longitud: ")))
         radio = float(input("Radio (en millas): "))
-        res=controller.getaccidentesByDistance(cont,lat,lng,radio)
+        res=controller.getaccidentesByDistance(cont,lng,lat,radio)
         dicdias={"0":"Lunes","1":"Martes","2":"Miercoles","3":"Jueves","4":"Viernes","5":"Sabado","6":"Domingo"}
         tot=0
         for i in range (0,7):
