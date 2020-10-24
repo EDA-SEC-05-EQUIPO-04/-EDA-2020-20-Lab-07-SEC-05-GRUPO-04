@@ -235,6 +235,7 @@ def getaccidentesByRangeCode(analyzer, StartDate, severity):
             return m.size(me.getValue(numaccidentes)['lstseverity'])
         return 0
 
+<<<<<<< HEAD
 def getaccidentesByRangeCodeHour(analyzer, StartDate, severity):
     """
     Para una fecha determinada, retorna el numero de accidentes
@@ -257,11 +258,46 @@ def getaccidentesByRangeState(analyzer, StartDate):
     if accidentedate['key'] is not None:
         statemap = me.getValue(accidentedate)['stateIndex']
         return statemap
+=======
+
+def getAccidentsByRange2(analyzer, initialDate, fecha_final):
+    lst = om.values(analyzer['dateIndex'], initialDate, fecha_final)
+    lstiterator = it.newIterator(lst)
+    tot_accidents = 0
+    serv_1 = 0
+    serv_2 = 0
+    serv_3 = 0
+    serv_4 = 0
+    while (it.hasNext(lstiterator)):
+        lstdate  = it.next(lstiterator)
+        i = 1
+        while i <= 4:
+            if i == 1:
+                serv_1 += getaccidentesByRangeCode(analyzer,lstdate,str(i))
+            elif i == 2:
+                serv_2 += getaccidentesByRangeCode(analyzer,lstdate,str(i))
+            elif i == 3:
+                serv_3 += getaccidentesByRangeCode(analyzer,lstdate,str(i))
+            else:
+                serv_4 += getaccidentesByRangeCode(analyzer,lstdate,str(i))
+            tot_accidents += getaccidentesByRangeCode(analyzer,lstdate,str(i))
+            i += 1
+    severidad_repetida = serv_2,2
+    if serv_1 > severidad_repetida[0]:
+        severidad_repetida = serv_1,1
+    elif serv_3 > severidad_repetida[0]:
+        severidad_repetida = serv_3,3
+    elif serv_4 > severidad_repetida[0]:
+        severidad_repetida = serv_4,4
+    return tot_accidents,severidad_repetida
+
+>>>>>>> 8b4ab06b4ce7481ec20b68055620897c40c34405
 
 def getAccidentsByRange(analyzer, initialDate, fecha_final):
     lst = om.values(analyzer['dateIndex'], initialDate, fecha_final)
     lstiterator = it.newIterator(lst)
     tot_accidents = 0
+<<<<<<< HEAD
     mapa=om.newMap(comparefunction=compareIds)
     mapa2=om.newMap(comparefunction=compareIds)
     while (it.hasNext(lstiterator)):
@@ -388,6 +424,22 @@ def getAccidentsByState(analyzer, initialDate, fecha_final):
            statemax=state
            nummax=om.get(mapaState,state)['value']
     return statemax,nummax
+=======
+    
+    mayor = 0
+    while (it.hasNext(lstiterator)):
+        lstdate  = it.next(lstiterator)
+        accidents_fecha = 0
+        i = 1
+        while i <= 4:
+            accidents_fecha += getaccidentesByRangeCode(analyzer,lstdate,str(i))
+            tot_accidents += getaccidentesByRangeCode(analyzer,lstdate,str(i))
+            i += 1
+        if accidents_fecha > mayor:
+            mayor = accidents_fecha
+            fecha_mas_acc = lstdate
+    return tot_accidents,mayor,fecha_mas_acc
+>>>>>>> 8b4ab06b4ce7481ec20b68055620897c40c34405
 
 def getAccidentsBeforeDate(analyzer, fecha_final):
 
