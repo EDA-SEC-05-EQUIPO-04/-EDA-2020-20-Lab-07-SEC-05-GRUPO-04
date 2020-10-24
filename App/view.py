@@ -56,11 +56,7 @@ def printMenu():
     print("5- Requerimento 3")
     print("6- Requerimento 4")
     print("7- Requerimento 5")
-<<<<<<< HEAD
     print("8- Requerimento 6")
-=======
-
->>>>>>> 8b4ab06b4ce7481ec20b68055620897c40c34405
     print("0- Salir")
     print("*******************************************")
 

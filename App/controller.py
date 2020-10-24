@@ -117,7 +117,6 @@ def getAccidentsByRangeState(analyzer, initialDate, finalDate):
 def getAccidentsBeforeDate (analyzer, finalDate):
     final = datetime.datetime.strptime(finalDate, '%Y-%m-%d')
     finalDate = final.date()
-<<<<<<< HEAD
     model.getAccidentsBeforeDate(analyzer, finalDate)
 
 def getaccidentesByDistance(analyzer,lon,lat,R):
@@ -131,6 +130,3 @@ def getInitialDate(analyzer):
     initialDate=model.minKey(analyzer)
     initialDate=str(initialDate.strftime("%Y-%m-%d"))
     return initialDate
-=======
-    return model.getAccidentsBeforeDate(analyzer, finalDate)
->>>>>>> 8b4ab06b4ce7481ec20b68055620897c40c34405
