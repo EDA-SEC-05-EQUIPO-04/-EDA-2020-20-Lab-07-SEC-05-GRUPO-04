@@ -148,11 +148,14 @@ while True:
         radio = float(input("Radio (en millas): "))
         res=controller.getaccidentesByDistance(cont,lat,lng,radio)
         dicdias={"0":"Lunes","1":"Martes","2":"Miercoles","3":"Jueves","4":"Viernes","5":"Sabado","6":"Domingo"}
+        tot=0
         for i in range (0,7):
             if om.contains(res,i):
+                tot+=om.get(res,i)['value']
                 print("Día: {} numero de accidentes {}".format(dicdias[str(i)],om.get(res,i)['value']))
             else:
                 print("Día: {} numero de accidentes {}".format(dicdias[str(i)],0))
+        print("Total de accidentes: {}".format(tot))
         printRespuesta()
     else:
         sys.exit(0)
